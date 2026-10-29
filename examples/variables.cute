@@ -1,0 +1,23 @@
+# variables.cute - variables and decimals
+# Run with:  python main.py examples/variables.cute
+
+# A shopping receipt
+price = 250
+quantity = 3
+discount = 0.10
+
+subtotal = price * quantity
+savings = subtotal * discount
+total = subtotal - savings
+
+print "Subtotal:", subtotal
+print "Discount:", savings
+print "Total:   ", total
+
+# Area of a circle
+pi = 3.14159
+radius = 5
+print "Circle area:", pi * radius ^ 2
+
+# A line with only an expression shows its answer
+(total + 25) / 7

@@ -1,0 +1,11 @@
+# error_demo.cute - shows how Calcute reports a runtime error.
+# Run with:  python main.py examples/error_demo.cute
+#
+# The first statements run normally, then line 10 divides by zero and
+# the program stops with a message pointing at the problem.
+
+items = 12
+print "Items:", items
+people = 0
+print "Each person gets:", items / people
+print "This line is never reached."
