@@ -85,22 +85,27 @@ class Interpreter:
     # ----- statements -----
 
     def assign(self, statement):
+        """x = expression: compute the value and save it in x."""
         _, name, expression = statement
         self.variables[name.text] = self.evaluate(expression)
 
     def print_values(self, statement):
+        """print item, item: show all items on one line."""
         values = [format_value(self.evaluate(item)) for item in statement[1]]
         self.output(" ".join(values))
 
     def show(self, statement):
+        """A line with only an expression: show its answer."""
         self.output(format_value(self.evaluate(statement[1])))
 
     # ----- expressions -----
 
     def literal(self, node):
+        """A number or text is already its own value."""
         return node[1]
 
     def variable(self, node):
+        """Look up a saved variable, or report that it has no value."""
         name = node[1]
         if name.text not in self.variables:
             raise CalcuteError("Runtime Error", f"Undefined variable '{name.text}'. "
@@ -108,9 +113,11 @@ class Interpreter:
         return self.variables[name.text]
 
     def negate(self, node):
+        """-x: the negative of the value."""
         return -self.evaluate(node[1])
 
     def binary(self, node):
+        """a op b: look up the operator in OPERATIONS and apply it."""
         _, op, left, right = node
         a, b = self.evaluate(left), self.evaluate(right)
         try:

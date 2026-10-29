@@ -60,6 +60,7 @@ class Parser:
         return self.advance()
 
     def skip_blank_lines(self):
+        """Skip empty lines between statements."""
         while self.peek().kind == "NEWLINE":
             self.advance()
 
@@ -77,6 +78,7 @@ class Parser:
         return statements
 
     def statement(self):
+        """statement = print ... | NAME = expression | expression"""
         if self.peek().text == "print":
             return self.print_statement()
         if self.peek().kind == "NAME" and self.peek(1).kind == "=":
@@ -84,6 +86,7 @@ class Parser:
         return ("show", self.expression())
 
     def print_statement(self):
+        """Read  print item, item, ...  e.g. print "Total:", x"""
         self.advance()                      # the word 'print'
         items = [self.print_item()]
         while self.peek().kind == ",":
@@ -92,11 +95,13 @@ class Parser:
         return ("print", items)
 
     def print_item(self):
+        """One thing to print: text in quotes, or an expression."""
         if self.peek().kind == "TEXT":
             return ("text", self.advance().text[1:-1])   # remove the quotes
         return self.expression()
 
     def assignment(self):
+        """Read  NAME = expression  e.g. x = 5 * 2"""
         name = self.advance()
         self.advance()                      # the '='
         return ("assign", name, self.expression())
@@ -104,9 +109,11 @@ class Parser:
     # ----- expressions -----
 
     def expression(self):
+        """expression = term { (+ | -) term }   -- done last"""
         return self.binary(self.term, ("+", "-"))
 
     def term(self):
+        """term = unary { (* | / | %) unary }"""
         return self.binary(self.unary, ("*", "/", "%"))
 
     def binary(self, next_rule, operators):
@@ -118,12 +125,14 @@ class Parser:
         return node
 
     def unary(self):
+        """unary = - unary | power   -- negative numbers"""
         if self.peek().kind == "-":
             self.advance()
             return ("negate", self.unary())
         return self.power()
 
     def power(self):
+        """power = primary [ ^ unary ]"""
         base = self.primary()
         if self.peek().kind == "^":         # right to left: 2^3^2 = 2^(3^2)
             operator = self.advance()
@@ -131,6 +140,7 @@ class Parser:
         return base
 
     def primary(self):
+        """primary = NUMBER | NAME | ( expression )   -- done first"""
         token = self.peek()
         rule = self.primary_rules.get(token.kind)
         if rule is None:
@@ -139,13 +149,16 @@ class Parser:
         return rule(self.advance())
 
     def number(self, token):
+        """A number token becomes a number node (whole or decimal)."""
         value = float(token.text) if "." in token.text else int(token.text)
         return ("number", value)
 
     def variable(self, token):
+        """A name token becomes a variable node."""
         return ("variable", token)
 
     def group(self, open_bracket):
+        """Read the expression inside ( ) and the closing )."""
         inside = self.expression()
         self.expect(")", f"Missing ')' to close the '(' at column {open_bracket.column}.")
         return inside

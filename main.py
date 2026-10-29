@@ -40,9 +40,11 @@ def run(interpreter, source):
         return False
 
 def show_help(interpreter, line):
+    """The 'help' command: show examples."""
     print(HELP)
 
 def show_variables(interpreter, line):
+    """The 'vars' command: list all saved variables."""
     for name, value in interpreter.variables.items():
         print(f"  {name} = {format_value(value)}")
 
