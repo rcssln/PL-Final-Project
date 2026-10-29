@@ -19,7 +19,7 @@ class CalcuteError(Exception):
 
     def show(self, source):
         """Return the error with the wrong line and a ^ under the problem."""
-        code = source.split("\n")[self.line - 1]
+        code = source.split("\n")[self.line - 1].replace("\t", " ")
         pointer = " " * (self.column - 1) + "^"
         return (f"{self.kind} at line {self.line}, column {self.column}:\n"
                 f"    {code}\n"

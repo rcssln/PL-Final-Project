@@ -35,6 +35,9 @@ def run(interpreter, source):
     except CalcuteError as error:
         print(error.show(source))
         return False
+    except RecursionError:
+        print("Error: the code has too many parentheses inside each other.")
+        return False
 
 def show_help(interpreter, line):
     print(HELP)
