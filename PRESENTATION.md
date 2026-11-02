@@ -58,7 +58,6 @@ Presenter 3 does all of this on the computer that will share its screen, **befor
 >
 > **Second, the order of operations comes from the grammar.** The parser has one rule for each level: plus and minus, then times and divide, then power, then numbers and parentheses. So in `7 + 6 * 10`, the multiplication is placed deeper in the tree and is done first.
 >
-> **Third, we don't use an if/else chain for the operations.**"
 
 **Do:** switch to the `interpreter.py` tab and point at `OPERATIONS`.
 
