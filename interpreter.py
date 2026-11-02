@@ -1,7 +1,6 @@
 """
 interpreter.py - Step 3: walk the syntax tree and compute the results.
 
-No if/else chain decides which operation to do. Instead:
   * OPERATIONS maps each operator symbol to the function that computes it.
   * Interpreter.evaluators / executors map each kind of tree node to the
     method that handles it.
