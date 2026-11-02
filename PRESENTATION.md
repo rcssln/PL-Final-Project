@@ -1,415 +1,146 @@
-# Calcute — Presentation Guide
+# Calcute — 4-Minute Presentation Script
 
-How to demonstrate Calcute, split into 5 parts, one per member.
+**Time limit: 3–4 minutes of presentation + 1 minute Q&A.**
+Every part is short on purpose. Speak at a normal pace and don't add extra demos.
 
-Each step has:
-- **Do**: what to type
-- **You'll see**: what appears on the screen
-- **Say**: what to explain (what it is, how it works, why we did it this way)
+| Time | Presenter | Parts | Covers requirement |
+|---|---|---|---|
+| 0:00 – 1:00 | **Presenter 1:** _name_ | 1. What Calcute can do<br>2. Programming language used | 6.a.i, 6.a.ii |
+| 1:00 – 1:50 | **Presenter 2:** _name_ | 3. Strategies in building Calcute | 6.a.iii |
+| 1:50 – 3:40 | **Presenter 3:** _name_ | 4. Live demo: math, variables, errors<br>5. Live demo: program file and closing | 6.b |
+| 3:40 – 4:40 | All three | Q&A (1 minute) | — |
 
-| Member | Part | Topic |
-|---|---|---|
-| Bullanday, Luis T. | Part 1 | Starting Calcute and arithmetic (`basics.cute`) |
-| Bagasani, Nythan | Part 2 | Variables (`variables.cute`) |
-| Bonifacio, Nathaniel | Part 3 | Error handling, live demo |
-| Sambat, Reymart | Part 4 | Errors in a file (`error_demo.cute`) and automatic tests |
-| Polendey, Stephen Jay | Part 5 | How Calcute works and why there is no if/else |
-
-> Before presenting: open a terminal in VS Code (``Ctrl+` ``) in the project folder. Run through the whole guide once so nothing surprises you.
+> Presenter 3 does the whole live demo, so Presenter 3's computer is the one that shares its screen.
 
 ---
 
-## PART 1 — Starting Calcute and Arithmetic
-**Presenter: Bullanday, Luis T.**
+## BEFORE JOINING THE MEETING (no time for debugging!)
 
-### 1A. Start Calcute
+Presenter 3 does all of this on the computer that will share its screen, **before** the meeting starts:
 
-**Do:**
-```
-python main.py
-```
-**You'll see:**
-```
-  Calcute - small, sweet, and good at math!
-  Type  help  for examples,  vars  for variables,  exit  to quit.
+1. ☐ Open the project folder in VS Code.
+2. ☐ Open a terminal (``Ctrl+` ``) and run the tests: `python -m unittest discover tests`. It must say `OK`.
+3. ☐ Make the terminal text big: click inside it and press `Ctrl` + `=` a few times.
+4. ☐ Run `python main.py` so the `cute>` prompt is **already showing** when you share the screen.
+5. ☐ Keep `interpreter.py` open in an editor tab, scrolled to the `OPERATIONS` table (for Part 3).
+6. ☐ Close other apps and notifications. Share only the VS Code window.
+7. ☐ Rehearse once with a timer. If you go over 4 minutes, shorten the "Say" lines, not the demo.
 
-cute>
-```
+---
+
+## PART 1 — What Calcute Can Do (30 sec)
+**Presenter 1**
+
 **Say:**
-> "This is Calcute's interactive mode. `main.py` is the starting point of our program. We type one line of Calcute, it's calculated right away, and we see the answer. If you're new, typing `help` shows examples."
+> "Good day! We are [names]. Our programming language is called **Calcute**: calc plus cute. It's a small, simple language for arithmetic.
+>
+> Calcute can add, subtract, multiply, divide, find the remainder and calculate powers. It works with whole numbers, decimals and negative numbers, and it follows the correct order of operations. It also supports **variables**, a **print** statement for showing text and answers, and **comments**. Most importantly, it has **clear error handling**: when the input is in the wrong format, Calcute tells you what's wrong and points to the exact spot."
 
-**Do:** type `help` to show the cheat sheet.
+---
 
-### 1B. Every operator
+## PART 2 — Programming Language Used (30 sec)
+**Presenter 1 (continues)**
 
-**Do:**
-```
-cute> 60 + 7
-67
-cute> 100 - 33
-67
-cute> 134 * 0.5
-67
-cute> 134 / 2
-67
-cute> 7 / 2
-3.5
-cute> 167 % 100
-67
-cute> 2 ^ 10
-1024
-cute> -5 + 2
--3
-```
 **Say:**
-> "Calcute supports addition, subtraction, multiplication, division, remainder and power, plus negative numbers and decimals. `134 / 2` gives the whole number 67, but `7 / 2` gives 3.5. Calcute keeps answers as whole numbers when it can."
+> "We built Calcute using **Python**. We chose Python because it's easy to read, it handles very large whole numbers exactly, and it runs on any computer.
+>
+> We didn't use any outside libraries, so there's nothing to install. We only used two built-in Python modules: **`re`**, for regular expressions, to recognize numbers, names and symbols, and **`operator`**, which provides the math functions like add and multiply. We wrote the main parts of the language ourselves."
 
-### 1C. Order of operations
+---
 
-**Do:**
+## PART 3 — Strategies in Building Calcute (50 sec)
+**Presenter 2**
+
+**Say:**
+> "We used three main strategies.
+>
+> **First, we split the work into three steps, like an assembly line.** The **lexer** cuts the code into small pieces called tokens. The **parser** checks the grammar and builds a tree. The **interpreter** calculates the answer from that tree.
+>
+> **Second, the order of operations comes from the grammar.** The parser has one rule for each level: plus and minus, then times and divide, then power, then numbers and parentheses. So in `7 + 6 * 10`, the multiplication is placed deeper in the tree and is done first.
+>
+> **Third, we don't use an if/else chain for the operations.**"
+
+**Do:** switch to the `interpreter.py` tab and point at `OPERATIONS`.
+
+> "Instead of writing 'if the input is plus, add; else if it's minus, subtract', we use a **dictionary** that maps each symbol to its function. It's shorter and cleaner, and adding a new operator takes only one line."
+
+---
+
+## PART 4 — Live Demo: Math, Variables, Errors (70 sec)
+**Presenter 3**
+
+**Do:** switch back to the terminal (the `cute>` prompt is already running). Type each line.
+
+**Say:** "Let me show Calcute in action. First, basic math and the order of operations."
 ```
 cute> 7 + 6 * 10
 67
 cute> (7 + 6) * 10
 130
-cute> 2 ^ 3 ^ 2
-512
-cute> -2 ^ 2
--4
+cute> 7 / 2
+3.5
+cute> 2 ^ 10
+1024
 ```
-**Say:**
-> "Calcute follows the math order we learned in school. In `7 + 6 * 10`, multiplication comes first, so it's 7 + 60 = 67. With parentheses, the addition is done first, so it becomes 130. Power is done right to left, so `2 ^ 3 ^ 2` is 2^9 = 512. And power comes before the negative sign, so `-2 ^ 2` is -4."
+> "Multiplication is done first, so 67. With parentheses, the addition goes first, so 130."
 
-### 1D. Run basics.cute
-
-**Do:** type `exit`, then:
-```
-python main.py examples/basics.cute
-```
-**You'll see:**
-```
---- Every operator ---
-60 + 7             = 67
-100 - 33           = 67
-134 * 0.5          = 67
-134 / 2            = 67
-167 % 100          = 67
-8 ^ 2 + 3          = 67
---- Order of operations ---
-7 + 6 * 10         = 67
-(10 - 3) * 10 - 3  = 67
-2 ^ 3 ^ 2 / 8 + 3  = 67
--2 ^ 2 + 71        = 67
-(-2) ^ 2 + 63      = 67
-100 - 20 - 13      = 67
---- Big whole numbers stay exact ---
-67 ^ 20 = 3322737661703085672358476688602579601
-```
-
-**Say: What is basics.cute?**
-> "basics.cute is a Calcute program saved in a file. It shows every operator and every order-of-operations rule together in one run."
-
-**Say: How does it work?**
-> "Each line uses `print` with two parts. The text in quotes is a label that shows the problem, like `"60 + 7 ="`. After the comma comes the actual math, `60 + 7`, which Calcute calculates. So each line displays the problem next to its answer."
-
-**Say: Why this approach?**
-> "We made every answer 67 on purpose, so the file checks itself. If Calcute did the order of operations wrong, the answer wouldn't be 67. For example, if it did `7 + 6 * 10` left to right, it would get 130. Seeing 67 on every line proves every rule is correct at a glance. We also used a file instead of typing by hand, so anyone can repeat the same test and get the same results. The last line, `67 ^ 20`, shows that Calcute handles very large whole numbers exactly, with no rounding."
-
----
-
-## PART 2 — Variables
-**Presenter: Bagasani, Nythan**
-
-### 2A. Creating and using variables
-
-**Do:** `python main.py`, then:
+**Say:** "Next, variables."
 ```
 cute> price = 50
 cute> quantity = 4
-cute> price * quantity
-200
-```
-**Say:**
-> "A variable is a name that stores a value. `price = 50` saves 50 under the name `price`. Assignment shows nothing on the screen. It only remembers the value. Then we can use the name in math."
-
-### 2B. Any name works
-
-**Do:**
-```
-cute> my_grade = 95
-cute> x1 = 7
-cute> x1 * 2
-14
-cute> _bonus = 5
-cute> Score = 10
-cute> score = 3
-cute> Score + score
-13
-```
-**Say:**
-> "We're not limited to `price`. A variable name can use letters, numbers and underscores, like `my_grade`, `x1` or `_bonus`, as long as it doesn't start with a number. Names are case-sensitive: `Score` and `score` are two different variables, which is why `Score + score` is 13."
-
-### 2C. Changing a variable
-
-**Do:**
-```
-cute> price = 60
-cute> price * quantity
-240
-```
-**Say:**
-> "If we give `price` a new value, every calculation after that uses the new value."
-
-### 2D. Variables, print and vars together
-
-**Do:**
-```
-cute> total = price * quantity + _bonus
-cute> print "Total:", total
-Total: 245
-cute> vars
-  price = 60
-  quantity = 4
-  my_grade = 95
-  Score = 10
-  score = 3
-  x1 = 7
-  _bonus = 5
-  total = 245
-```
-**Say:**
-> "Variables can be built from other variables. `print` shows text and values together, and `vars` lists every variable Calcute remembers."
-
-### 2E. Names that are not allowed
-
-**Do:**
-```
-cute> 1x = 5
-Syntax Error ... Found 'x'.
-cute> my-grade = 5
-Syntax Error ... Found '='.
-cute> print = 5
-Syntax Error ... found '='.
-```
-**Say:**
-> "These names are rejected. A name can't start with a number, like `1x`. A dash isn't allowed, because Calcute reads `my-grade` as 'my minus grade'. And `print` is a keyword, so it can't be a variable name."
-
-### 2F. Run variables.cute
-
-**Do:** type `exit`, then:
-```
-python main.py examples/variables.cute
-```
-**You'll see:**
-```
-Subtotal: 750
-Discount: 75
-Total:    675
-Circle area: 78.53975
-100
+cute> print "Total:", price * quantity
+Total: 200
 ```
 
-**Say: What is variables.cute?**
-> "variables.cute is a small real-life program: a shopping receipt and the area of a circle."
-
-**Say: How does it work?**
-> "First it stores the values: `price = 250`, `quantity = 3`, `discount = 0.10`. Then each step builds on the one before. `subtotal = price * quantity` gives 750. `savings = subtotal * discount` gives 75. `total = subtotal - savings` gives 675. The circle part uses `pi * radius ^ 2`. The last line, `(total + 25) / 7`, is a calculation with no `print`, so Calcute just shows the answer, 100."
-
-**Say: Why this approach?**
-> "We chose a real problem to show why variables matter. Without them, we would have to write `250 * 3 - 250 * 3 * 0.10`, which is hard to read. With variables, each line says what it means, like `total = subtotal - savings`. That's the readability criterion. It's also easy to change: update `price` once and everything recalculates. It mixes whole numbers and decimals too, which shows both work together."
-
----
-
-## PART 3 — Error Handling (Live Demo)
-**Presenter: Bonifacio, Nathaniel**
-
-### 3A. Syntax Errors (wrong format)
-
-**Do:** `python main.py`, then:
+**Say:** "Now the error handling. Let's make some mistakes on purpose."
 ```
 cute> 5 +
 Syntax Error at line 1, column 4:
     5 +
        ^
 Expected a number, a variable or '(' but found the end of the program.
-```
-**Say:**
-> "A Syntax Error means the code is written in the wrong format. Here, the plus has nothing after it. Calcute doesn't crash. It gives the line and column, puts a `^` under the problem, and explains it."
-
-**Do:**
-```
-cute> (2 + 3
-Missing ')' to close the '(' at column 1. Found the end of the program.
-cute> 3 4
-Expected the end of the line. Did you forget an operator? Found '4'.
-cute> 2 * * 3
-Expected a number, a variable or '(' but found '*'.
-cute> 2 $ 3
-The character $ is not allowed.
-cute> 1.2.3
-The character . is not allowed.
-```
-**Say:**
-> "A missing parenthesis, a missing operator, a doubled operator, an unknown symbol, a wrong number. Each one gets its own clear message."
-
-### 3B. Runtime Errors (cannot compute)
-
-**Do:**
-```
 cute> 10 / 0
 Runtime Error at line 1, column 4:
     10 / 0
        ^
 Cannot divide by zero.
 cute> y + 1
+Runtime Error at line 1, column 1:
+    y + 1
+    ^
 Undefined variable 'y'. Give it a value first, e.g. y = 10
-cute> (-8) ^ 0.5
-A negative number cannot have a fractional power.
-cute> 9 ^ 9 ^ 9
-The result is too large to compute.
 ```
-**Say:**
-> "A Runtime Error means the format is correct, but the answer can't be calculated: dividing by zero, using a variable with no value, or a number too big to handle. `9 ^ 9 ^ 9` would freeze many programs, but Calcute checks the size first and stops safely."
+> "Calcute doesn't crash. It tells us the kind of error, the line and column, and points at the problem with a caret."
 
-### 3C. If someone asks: "Is a single number an error?"
-
-```
-cute> 22
-22
-```
-> "No. A single number is a complete expression, like on a calculator. An error only happens when an operator is missing a number, like `22 +`, or when two numbers are missing an operator between them, like `22 5`."
+**Do:** type `exit`.
 
 ---
 
-## PART 4 — Errors in a File and Automatic Tests
-**Presenter: Sambat, Reymart**
-
-### 4A. Run error_demo.cute
-
-**Do:** type `exit`, then:
-```
-python main.py examples/error_demo.cute
-```
-**You'll see:**
-```
-Items: 12
-Runtime Error at line 10, column 34:
-    print "Each person gets:", items / people
-                                     ^
-Cannot divide by zero.
-```
-
-**Say: What is error_demo.cute?**
-> "error_demo.cute shows what happens when an error occurs inside a program file instead of in interactive mode."
-
-**Say: How does it work?**
-> "It sets `items = 12` and prints it. That works. Then it sets `people = 0` and tries `items / people`, which divides by zero. Calcute stops at that line and reports line 10, column 34, the exact position of the `/`. The line after it never runs."
-
-**Say: Why this approach?**
-> "In a long program, the error has to point at the exact line, or you'd have to search the whole file. It also shows that the earlier lines run correctly, and Calcute stops safely when it reaches the mistake, without a messy crash. That's the reliability criterion."
-
-### 4B. Syntax is checked before anything runs
-
-**Do:** create a file `test.cute` containing:
-```
-print "Hello"
-print 2 +
-```
-then run:
-```
-python main.py test.cute
-```
-**You'll see:** only the Syntax Error for line 2. `Hello` is **not** printed.
-
-**Say:**
-> "Calcute checks the whole program before running any of it, so a mistake on the last line is caught before the first line runs. Half-finished programs never run."
-
-### 4C. Automatic tests
+## PART 5 — Live Demo: Program File + Closing (40 sec)
+**Presenter 3 (continues)**
 
 **Do:**
 ```
-python -m unittest discover tests -v
+python main.py examples/basics.cute
 ```
-**You'll see:** 5 tests, each marked `ok`, ending with `OK`.
+**Say:**
+> "Calcute can also run a whole program saved in a file. This file tests every operator and every order-of-operations rule, and we made every answer 67 on purpose. If any rule were wrong, the answer wouldn't be 67, so this proves Calcute calculates correctly."
 
-**Say: What is it?**
-> "test_calcute.py checks Calcute automatically: about 20 correct answers, 11 syntax errors and 7 runtime errors."
-
-**Say: Why this approach?**
-> "Testing by hand is slow and easy to get wrong. With automatic tests, one command proves the output is correct. If we change the code later, we run the tests again to make sure nothing broke."
+**Say (closing):**
+> "To sum up: Calcute is **readable** because it looks like normal math, **writable** because programs are short, **reliable** because every mistake is caught with its exact location, and **low-cost** because anyone who knows basic math can use it, and it only needs Python. Thank you! We're happy to answer questions."
 
 ---
 
-## PART 5 — How Calcute Works (and Why No If/Else)
-**Presenter: Polendey, Stephen Jay**
-
-### 5A. The 3 steps
-
-**Say:**
-> "Calcute reads code in 3 steps, like an assembly line."
-
-```
-your code  →  1. LEXER  →  2. PARSER  →  3. INTERPRETER  →  answer
-              lexer.py    syntax_parser.py  interpreter.py
-```
-
-> "**Step 1, the lexer**, cuts the code into pieces called tokens. `7 + 6 * 10` becomes `7`, `+`, `6`, `*`, `10`. It's like reading the words of a sentence."
-
-> "**Step 2, the parser**, checks the grammar, like checking that a sentence is correct, and builds a tree:"
-
-```
-        +
-       / \
-      7   *
-         / \
-        6   10
-```
-
-> "Multiplication sits lower in the tree, so it's done first."
-
-> "**Step 3, the interpreter**, calculates from the bottom up: 6 × 10 = 60, then 7 + 60 = 67."
-
-### 5B. Why no if/else
-
-**Do:** open `interpreter.py` and show the `OPERATIONS` table.
-
-**Say:**
-> "The simple way to build a calculator is a long if/else chain: if the input is plus, add; else if it's minus, subtract; and so on. We don't do that. We use a dictionary called `OPERATIONS` that maps each symbol to its function."
-
-```python
-OPERATIONS = {
-    "+": operator.add,
-    "-": operator.sub,
-    "*": operator.mul,
-    "/": divide,
-    "%": operator.mod,
-    "^": power,
-}
-
-result = OPERATIONS[op](a, b)    # look up the operator, then use it
-```
-
-> "It's shorter and cleaner, and every operator works the same way. Adding a new operator only takes one new line. We used the same idea for the interactive commands (`COMMANDS`) and the error messages (`ERROR_MESSAGES`)."
-
-### 5C. PL evaluation criteria (closing)
-
-**Say:**
-> "To finish, here's how Calcute meets the PL evaluation criteria.
-> **Readability:** it looks like normal math.
-> **Writability:** programs are short, with no declarations or data types.
-> **Reliability:** every mistake is caught with its exact location, and automatic tests prove the answers are correct.
-> **Cost:** anyone who knows basic math can learn it in minutes, and it only needs Python.
-> Thank you!"
-
----
-
-## Quick Q&A cheat sheet
+## Q&A CHEAT SHEET (1 minute, so keep answers short)
 
 | If asked... | Answer |
 |---|---|
-| What is a token? | The smallest piece of code, like a number, a name or an operator. |
-| Why is `*` done before `+`? | The parser's grammar rules put `*` lower in the tree, so it's calculated first. |
-| Why a dictionary instead of if/else? | It's shorter, cleaner, the same for every operator, and adding an operator takes one line. |
-| What libraries did you use? | Only Python's built-in `re` (regular expressions, in the lexer) and `operator` (the math functions). Nothing to install. |
-| Difference between Syntax and Runtime Error? | Syntax = wrong format (found before running). Runtime = right format, but it can't be calculated (found while running). |
-| Is `22` alone an error? | No. A single number is a complete expression. |
+| What is a token? | The smallest piece of code, like a number, a name or a symbol. |
+| Why is `*` done before `+`? | The parser's grammar puts `*` deeper in the tree, so it's calculated first. |
+| Why a dictionary instead of if/else? | Shorter, cleaner, the same for every operator, and adding an operator takes one line. |
+| What libraries did you use? | Only Python's built-in `re` and `operator`. Nothing to install. |
+| Syntax Error vs Runtime Error? | Syntax = wrong format, found before running. Runtime = right format, but it can't be calculated. |
+| Is `22` alone an error? | No. A single number is a complete expression, like on a calculator. |
+| Can you use any variable name? | Yes: letters, numbers and underscores, but not starting with a number. `Score` and `score` are different. |
+| What if the code has a mistake on the last line? | Calcute checks the whole program before running, so nothing runs. |
+| Does it handle huge numbers? | Yes, whole numbers are exact (`2 ^ 100` works). Results that are too large, like `9 ^ 9 ^ 9`, give an error instead of freezing. |

@@ -1,17 +1,6 @@
 # Calcute
 
-**A small, sweet programming language for math.**
-
-CMPSC 132: Programming Languages — Final Project (1st Semester, A.Y. 2025–2026)
-
-**Group members:**
-1. Bullanday, Luis T.
-2. Bagasani, Nythan
-3. Bonifacio, Nathaniel
-4. Sambat, Reymart
-5. Polendey, Stephen Jay
-
----
+CMPSC 132: Programming Languages — Final Project
 
 ## 1. What is Calcute?
 
